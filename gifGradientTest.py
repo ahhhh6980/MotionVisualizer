@@ -162,13 +162,6 @@ def compute_motion(url, loopGif):
          [[ 0, 0, 0],[ 0, 0, 0],[ 0, 0, 0]]]
         ), [(0,d+3), (0,h+3), (0,w+3)])
 
-    # This will compute the change in image over time
-    kernelDerivativeTimeFromTiny = np.pad(np.array(
-        [[[ 0, 0, 0],[ 0,-1, 0],[ 0, 0, 0]],
-         [[ 0, 0, 0],[ 0, 1, 0],[ 0, 0, 0]],
-         [[ 0, 0, 0],[ 0, 0, 0],[ 0, 0, 0]]]
-        ), [(0,d+3), (0,h+3), (0,w+3)])
-
     # This will compute the edges of the image
     kernelEdgeDetect = np.pad(np.array(
         [[[ 0, 0, 0],[ 0, 0, 0],[ 0, 0, 0]],
