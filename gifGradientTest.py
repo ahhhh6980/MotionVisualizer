@@ -72,9 +72,7 @@ def url_gif_to_cv2_array(url):
 pyfftw.interfaces.cache.enable()
 simd = pyfftw.simd_alignment
 threadCount = psutil.cpu_count()
-if threadCount < 6:
-    threadCount = 2
-else: threadCount = 6
+if threadCount > 6: threadCount = 6
 print("SIMD Alignment =", simd)
 print("Threads In Use =", threadCount)
 global written_wisdom
