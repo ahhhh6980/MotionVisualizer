@@ -21,7 +21,7 @@ import sys, os, cv2, urllib.request, PIL
 import pickle, psutil, warnings, pyfftw
 import imageio as iio
 import numpy as np
-
+script_dir = os.getcwd()
 warnings.simplefilter('error')
 
 def gif_to_channels(gif):
@@ -47,7 +47,7 @@ def channels_to_grayscale_gif(channels):
     return np.array(gif)
 
 def url_gif_to_cv2_array(url):
-    fname = "../Gradient/Gifs/"+url[1].split("/")[-1]
+    fname = script_dir+"/Gifs/"+url[1].split("/")[-1]
 
     if not os.path.exists(fname):
         with urllib.request.urlopen(url[0]) as request:
@@ -101,7 +101,7 @@ def apply_kernel(img, kernel):
     if not written_wisdom:
         print(" done!")
         written_wisdom = True
-        with open("../Gradient/wisdom.txt", "wb+") as f:
+        with open(script_dir+"/wisdom.txt", "wb+") as f:
             pickle.dump(pyfftw.export_wisdom(), f)
 
     # Create Fourier Transform object, and then execute it!
@@ -236,7 +236,7 @@ def main():
     ]
 
     # Import information for FFTW
-    with open("../Gradient/wisdom.txt", "r+b") as f:
+    with open(script_dir+"/wisdom.txt", "r+b") as f:
         pyfftw.import_wisdom(pickle.load(f))
 
     # Compute motion
@@ -248,10 +248,10 @@ def main():
         fname = url[1].split("/")[-1].split(".")
         
         # Save Gif
-        save_grad_gif(channels, "../Gradient/Output/"+fname[0]+"_grad.gif", data[1], color=False)
+        save_grad_gif(channels, script_dir+"/Output/"+fname[0]+"_grad.gif", data[1], color=False)
 
     # Export information for FFTW
-    with open("../Gradient/wisdom.txt", "wb+") as f:
+    with open(script_dir+"/wisdom.txt", "wb+") as f:
         pickle.dump(pyfftw.export_wisdom(), f)
 
 if __name__ == "__main__":
